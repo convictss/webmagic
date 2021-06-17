@@ -149,8 +149,18 @@ public class Request implements Serializable {
         return this;
     }
 
+    public Request addCookies(Map<String, String> cookies) {
+        cookies.forEach((name, value) -> this.cookies.put(name, value));
+        return this;
+    }
+
     public Request addHeader(String name, String value) {
         headers.put(name, value);
+        return this;
+    }
+
+    public Request addHeaders(Map<String, String> headers) {
+        headers.forEach((name, value) -> this.headers.put(name, value));
         return this;
     }
 
