@@ -31,12 +31,12 @@ public interface Scheduler {
     public Request poll(Task task);
 
     /**
-     * clear schedule queue
+     * clearQueue schedule queue
      */
-    public void clear();
+    public void clearQueue();
 
     /**
-     * clear duplicate remover's urls
+     * clearQueue duplicate remover's urls
      */
     public void clearDuplicateSet();
 

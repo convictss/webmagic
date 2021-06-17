@@ -60,7 +60,7 @@ public class PriorityScheduler extends DuplicateRemovedScheduler implements Moni
     }
 
     @Override
-    public void clear() {
+    public void clearQueue() {
 
     }
 

@@ -71,7 +71,7 @@ public class TestSpider implements PageProcessor {
             spider.addUrl(testUrl);
             spider.start();
             spider.getScheduler().clearDuplicateSet();
-            spider.getScheduler().clear();
+            spider.getScheduler().clearQueue();
 
         } catch (Exception e) {
             e.printStackTrace();

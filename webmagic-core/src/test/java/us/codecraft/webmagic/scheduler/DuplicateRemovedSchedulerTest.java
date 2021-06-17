@@ -28,7 +28,7 @@ public class DuplicateRemovedSchedulerTest {
         }
 
         @Override
-        public void clear() {
+        public void clearQueue() {
 
         }
 

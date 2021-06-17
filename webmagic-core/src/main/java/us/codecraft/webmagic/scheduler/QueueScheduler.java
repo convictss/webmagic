@@ -29,7 +29,7 @@ public class QueueScheduler extends DuplicateRemovedScheduler implements Monitor
     }
 
     @Override
-    public void clear() {
+    public void clearQueue() {
         queue.clear();
         logger.debug("queue size: {}", queue.size());
     }

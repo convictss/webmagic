@@ -89,7 +89,7 @@ public class SpiderTest {
             }
 
             @Override
-            public void clear() {
+            public void clearQueue() {
 
             }
 
