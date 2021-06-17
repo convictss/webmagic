@@ -111,6 +111,12 @@ public class Spider implements Runnable, Task {
     private int statusCode;
 
     /**
+     * k: statusCode
+     * v: urls
+     */
+    private Map<Integer, List<String>> errorUrls = new HashMap<Integer, List<String>>();
+
+    /**
      * create a spider with pageProcessor.
      *
      * @param pageProcessor pageProcessor
@@ -422,6 +428,13 @@ public class Spider implements Runnable, Task {
                 }
             }
         } else {
+            if (errorUrls.containsKey(statusCode)) {
+                errorUrls.get(statusCode).add(request.getUrl());
+            } else {
+                List<String> urls = new ArrayList<String>();
+                urls.add(request.getUrl());
+                errorUrls.put(statusCode, urls);
+            }
             logger.info("page status code error, page {} , code: {}", request.getUrl(), page.getStatusCode());
         }
         sleep(site.getSleepTime());
@@ -774,5 +787,9 @@ public class Spider implements Runnable, Task {
 
     public int getStatusCode() {
         return statusCode;
+    }
+
+    public Map<Integer, List<String>> getErrorUrls() {
+        return errorUrls;
     }
 }
