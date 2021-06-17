@@ -45,6 +45,8 @@ public class HttpClientDownloader extends AbstractDownloader {
 
     private boolean responseHeader = true;
 
+    private boolean showFailLog = true;
+
     // if set proxy and this list is not null, if page status code in this list, then current proxy is invalid and remove
     private List<Integer> proxyRemoveCodes = new ArrayList<Integer>();
 
@@ -92,7 +94,10 @@ public class HttpClientDownloader extends AbstractDownloader {
             logger.info("downloading page success {}", request.getUrl());
             return page;
         } catch (IOException e) {
-            logger.warn("download page {} error", request.getUrl(), e);
+            logger.warn("download page {} error", request.getUrl());
+            if (showFailLog) {
+                e.printStackTrace();
+            }
             onError(request);
             // if proxyRemoveCodes size great than 0, show user want to filter invalid proxy,
             // but the page object code in that is 200, such as connect timeout...(maybe it can add proxy connect timeout count.)
@@ -121,7 +126,7 @@ public class HttpClientDownloader extends AbstractDownloader {
         String contentType = httpResponse.getEntity().getContentType() == null ? "" : httpResponse.getEntity().getContentType().getValue();
         Page page = new Page();
         page.setBytes(bytes);
-        if (!request.isBinaryContent()){
+        if (!request.isBinaryContent()) {
             if (charset == null) {
                 charset = getHtmlCharset(contentType, bytes);
             }
@@ -159,4 +164,7 @@ public class HttpClientDownloader extends AbstractDownloader {
         this.proxyProvider = proxyProvider;
     }
 
+    public void setShowFailLog(boolean showFailLog) {
+        this.showFailLog = showFailLog;
+    }
 }
