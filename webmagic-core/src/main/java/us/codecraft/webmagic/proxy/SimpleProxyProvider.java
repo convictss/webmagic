@@ -59,4 +59,14 @@ public class SimpleProxyProvider implements ProxyProvider {
         }
         return p % size;
     }
+
+    @Override
+    public List<Proxy> getProxies() {
+        return proxies;
+    }
+
+    @Override
+    public void removeProxy(Proxy proxy) {
+        this.proxies.remove(proxy);
+    }
 }
