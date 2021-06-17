@@ -622,6 +622,10 @@ public class Spider implements Runnable, Task {
         return this;
     }
 
+    public void setDestroyWhenExit(boolean destroyWhenExit) {
+        this.destroyWhenExit = destroyWhenExit;
+    }
+
     public boolean isExitWhenComplete() {
         return exitWhenComplete;
     }
