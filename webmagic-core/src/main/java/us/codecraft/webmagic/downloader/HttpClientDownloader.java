@@ -54,14 +54,6 @@ public class HttpClientDownloader extends AbstractDownloader {
         }
     }
 
-    public void setHttpUriRequestConverter(HttpUriRequestConverter httpUriRequestConverter) {
-        this.httpUriRequestConverter = httpUriRequestConverter;
-    }
-
-    public void setProxyProvider(ProxyProvider proxyProvider) {
-        this.proxyProvider = proxyProvider;
-    }
-
     private CloseableHttpClient getHttpClient(Site site) {
         if (site == null) {
             return httpClientGenerator.getClient(null);
@@ -159,4 +151,17 @@ public class HttpClientDownloader extends AbstractDownloader {
         }
         return charset;
     }
+
+    public void setHttpUriRequestConverter(HttpUriRequestConverter httpUriRequestConverter) {
+        this.httpUriRequestConverter = httpUriRequestConverter;
+    }
+
+    public ProxyProvider getProxyProvider() {
+        return proxyProvider;
+    }
+
+    public void setProxyProvider(ProxyProvider proxyProvider) {
+        this.proxyProvider = proxyProvider;
+    }
+
 }
