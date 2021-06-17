@@ -114,7 +114,7 @@ public class Spider implements Runnable, Task {
      * k: statusCode
      * v: urls
      */
-    private Map<Integer, List<String>> errorUrls = new HashMap<Integer, List<String>>();
+    private Map<Integer, List<String>> errorUrlsMap = new HashMap<Integer, List<String>>();
 
     /**
      * create a spider with pageProcessor.
@@ -428,12 +428,12 @@ public class Spider implements Runnable, Task {
                 }
             }
         } else {
-            if (errorUrls.containsKey(statusCode)) {
-                errorUrls.get(statusCode).add(request.getUrl());
+            if (errorUrlsMap.containsKey(statusCode)) {
+                errorUrlsMap.get(statusCode).add(request.getUrl());
             } else {
                 List<String> urls = new ArrayList<String>();
                 urls.add(request.getUrl());
-                errorUrls.put(statusCode, urls);
+                errorUrlsMap.put(statusCode, urls);
             }
             logger.info("page status code error, page {} , code: {}", request.getUrl(), page.getStatusCode());
         }
@@ -789,7 +789,7 @@ public class Spider implements Runnable, Task {
         return statusCode;
     }
 
-    public Map<Integer, List<String>> getErrorUrls() {
-        return errorUrls;
+    public Map<Integer, List<String>> getErrorUrlsMap() {
+        return errorUrlsMap;
     }
 }
