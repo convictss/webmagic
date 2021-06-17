@@ -87,6 +87,11 @@ public class SpiderTest {
                 }
                 return new Request("test");
             }
+
+            @Override
+            public void clear() {
+
+            }
         }).thread(10);
         spider.run();
     }

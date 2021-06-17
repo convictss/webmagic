@@ -5,6 +5,9 @@
         <artifactId>webmagic-parent</artifactId>
         <version>0.7.3</version>
     </parent>
+
+    <version>0.7.4</version>
+
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>webmagic-core</artifactId>

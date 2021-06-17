@@ -30,4 +30,6 @@ public interface Scheduler {
      */
     public Request poll(Task task);
 
+    public void clear();
+
 }
