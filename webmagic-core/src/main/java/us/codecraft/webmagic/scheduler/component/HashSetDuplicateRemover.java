@@ -32,4 +32,9 @@ public class HashSetDuplicateRemover implements DuplicateRemover {
     public int getTotalRequestsCount(Task task) {
         return urls.size();
     }
+
+    @Override
+    public void clear() {
+        this.urls.clear();
+    }
 }

@@ -60,6 +60,16 @@ public class PriorityScheduler extends DuplicateRemovedScheduler implements Moni
     }
 
     @Override
+    public void clear() {
+
+    }
+
+    @Override
+    public void clearDuplicateSet() {
+
+    }
+
+    @Override
     public int getLeftRequestsCount(Task task) {
         return noPriorityQueue.size();
     }

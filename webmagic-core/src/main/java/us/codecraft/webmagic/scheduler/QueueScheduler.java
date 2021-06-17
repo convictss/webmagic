@@ -35,6 +35,11 @@ public class QueueScheduler extends DuplicateRemovedScheduler implements Monitor
     }
 
     @Override
+    public void clearDuplicateSet() {
+        super.getDuplicateRemover().clear();
+    }
+
+    @Override
     public int getLeftRequestsCount(Task task) {
         return queue.size();
     }

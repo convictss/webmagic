@@ -32,4 +32,6 @@ public interface DuplicateRemover {
      */
     public int getTotalRequestsCount(Task task);
 
+    public void clear();
+
 }

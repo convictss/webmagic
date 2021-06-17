@@ -92,6 +92,11 @@ public class SpiderTest {
             public void clear() {
 
             }
+
+            @Override
+            public void clearDuplicateSet() {
+
+            }
         }).thread(10);
         spider.run();
     }

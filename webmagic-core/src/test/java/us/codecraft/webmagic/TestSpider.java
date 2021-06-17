@@ -70,6 +70,8 @@ public class TestSpider implements PageProcessor {
             String testUrl = "https://www.redfin.com/VA/Falls-Church/6511-Cape-Ct-22043/home/9476508";
             spider.addUrl(testUrl);
             spider.start();
+            spider.getScheduler().clearDuplicateSet();
+            spider.getScheduler().clear();
 
         } catch (Exception e) {
             e.printStackTrace();

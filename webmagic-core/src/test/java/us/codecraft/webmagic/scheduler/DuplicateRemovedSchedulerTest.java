@@ -26,6 +26,16 @@ public class DuplicateRemovedSchedulerTest {
         public Request poll(Task task) {
             return null;
         }
+
+        @Override
+        public void clear() {
+
+        }
+
+        @Override
+        public void clearDuplicateSet() {
+
+        }
     };
 
     @Test

@@ -38,11 +38,6 @@ public abstract class DuplicateRemovedScheduler implements Scheduler {
         }
     }
 
-    @Override
-    public void clear() {
-
-    }
-
     protected boolean shouldReserved(Request request) {
         return request.getExtra(Request.CYCLE_TRIED_TIMES) != null;
     }
