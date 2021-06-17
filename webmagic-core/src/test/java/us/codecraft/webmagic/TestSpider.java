@@ -4,8 +4,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.processor.PageProcessor;
+import us.codecraft.webmagic.scheduler.PriorityScheduler;
 import us.codecraft.webmagic.selector.Html;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -34,51 +37,53 @@ public class TestSpider implements PageProcessor {
     }
 
     public static void main(String[] args) throws InterruptedException {
-
         Spider spider = Spider.create(new TestSpider()).thread(1);
-        spider.destroyWhenExit = false;
-        for (int i = 0; i < 100; i++) {
-            String url = "https://www.tianyancha.com/company/1129200733?_=" + i;
+        List<String> keyNos = new ArrayList<String>();
+        keyNos.add("640625808");
+        keyNos.add("2427587838");
+        keyNos.add("3139635864");
+        keyNos.add("3139635862");
+        for (String keyNo : keyNos) {
             Request request = new Request();
+            String url = "https://www.tianyancha.com/company/" + keyNo + "?_=" + System.currentTimeMillis();
             request.setUrl(url);
             request.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36");
-            request.addCookie("auth_token", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNTA1Nzk4MDgyMyIsImlhdCI6MTU3NzM0MDM1OCwiZXhwIjoxNjA4ODc2MzU4fQ.pWfX9N301LD09Lk62EYRxL0SJE92fmSP-otjkq7W9jvIFQst1Z6SpJ3wrBOiPaR1Av452zlRsyYNY-5My0goKg");
+            request.addCookie("auth_token", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNTY4NzEyNDcyNiIsImlhdCI6MTU3ODk4OTgwMCwiZXhwIjoxNjEwNTI1ODAwfQ.h1e_PepAFZYsg4-NZkYvOpDLAc-EA0Wd__WSMlCBl7eFX11ozCVaKH0TOphp8MCsEUFWfNlZ-9J821GVPq7ZiQ");
             spider.addRequest(request);
         }
+        Request r = new Request();
+        String u = "https://www.tianyancha.com/pagination/holder.xhtml?ps=20&pn=1&id=" + 640625808 + "&_=" + System.currentTimeMillis();
+        r.setUrl(u);
+        r.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36");
+        r.addCookie("auth_token", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNTY4NzEyNDcyNiIsImlhdCI6MTU3ODk4OTgwMCwiZXhwIjoxNjEwNTI1ODAwfQ.h1e_PepAFZYsg4-NZkYvOpDLAc-EA0Wd__WSMlCBl7eFX11ozCVaKH0TOphp8MCsEUFWfNlZ-9J821GVPq7ZiQ");
+        spider.addRequest(r);
+
+        keyNos.add("64062580811");
+        keyNos.add("24275878382");
+        keyNos.add("31396358642");
+        keyNos.add("31396358623");
+        for (String keyNo : keyNos) {
+            Request request = new Request();
+            String url = "https://www.tianyancha.com/company/" + keyNo + "?_=" + System.currentTimeMillis();
+            request.setUrl(url);
+            request.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36");
+            request.addCookie("auth_token", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNTY4NzEyNDcyNiIsImlhdCI6MTU3ODk4OTgwMCwiZXhwIjoxNjEwNTI1ODAwfQ.h1e_PepAFZYsg4-NZkYvOpDLAc-EA0Wd__WSMlCBl7eFX11ozCVaKH0TOphp8MCsEUFWfNlZ-9J821GVPq7ZiQ");
+            spider.addRequest(request);
+        }
+
         spider.start();
 
         while (true) {
-            Thread.sleep(2000);
-            System.out.println("check!!!");
-            spider.stop();
+            Thread.sleep(500);
             if (spider.getStatus().equals(Spider.Status.Stopped)) {
-                for (int i = 0; i < 100; i++) {
-                    spider.addUrl("http://www.baidu.com?_=" + i);
+                break;
+            } else if (spider.getStatus().equals(Spider.Status.Running)) {
+                int statusCode = spider.getStatusCode();
+                if (statusCode != 0 && !spider.getSite().getAcceptStatCode().contains(statusCode)) {
+                    System.out.println("need stop");
+                    spider.stop();
+                    break;
                 }
-                spider.start();
-                break;
-            }
-        }
-
-
-        while (true) {
-            Thread.sleep(5000);
-            System.out.println("check222!!!");
-            spider.stop();
-            if (spider.getStatus().equals(Spider.Status.Stopped)) {
-                for (int i = 0; i < 5; i++) {
-                    spider.addUrl("http://www.baidu.com?kk=" + i);
-                }
-                spider.start();
-                break;
-            }
-        }
-
-        while (true) {
-            Thread.sleep(5000);
-            if (spider.getStatus().equals(Spider.Status.Stopped)) {
-                spider.close();
-                break;
             }
         }
     }
