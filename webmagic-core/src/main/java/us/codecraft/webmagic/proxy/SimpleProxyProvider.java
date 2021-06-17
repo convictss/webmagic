@@ -35,7 +35,8 @@ public class SimpleProxyProvider implements ProxyProvider {
         for (Proxy proxy : proxies) {
             proxiesTemp.add(proxy);
         }
-        return new SimpleProxyProvider(Collections.unmodifiableList(proxiesTemp));
+//        return new SimpleProxyProvider(Collections.unmodifiableList(proxiesTemp));
+        return new SimpleProxyProvider(Collections.synchronizedList(proxiesTemp));
     }
 
     @Override
@@ -45,7 +46,7 @@ public class SimpleProxyProvider implements ProxyProvider {
 
     @Override
     public Proxy getProxy(Task task) {
-        if (proxies.size() == 0) {
+        if (proxies.size() <= 0) {
             return null;
         } else {
             return proxies.get(incrForLoop());

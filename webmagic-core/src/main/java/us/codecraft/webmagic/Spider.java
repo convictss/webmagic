@@ -20,6 +20,7 @@ import us.codecraft.webmagic.utils.WMCollections;
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -114,7 +115,7 @@ public class Spider implements Runnable, Task {
      * k: statusCode
      * v: urls
      */
-    private Map<Integer, List<Request>> errorRequestsMap = new HashMap<Integer, List<Request>>();
+    private Map<Integer, List<Request>> errorRequestsMap = new ConcurrentHashMap<Integer, List<Request>>();
 
     /**
      * create a spider with pageProcessor.
@@ -249,7 +250,7 @@ public class Spider implements Runnable, Task {
     }
 
     /**
-     * clear the pipelines set
+     * clearQueue the pipelines set
      *
      * @return this
      */
@@ -599,7 +600,7 @@ public class Spider implements Runnable, Task {
         } else {
             logger.info("Spider " + getUUID() + " stop fail!");
         }
-        // scheduler.clear();
+        // scheduler.clearQueue();
     }
 
     /**
