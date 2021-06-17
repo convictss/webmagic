@@ -95,9 +95,8 @@ public class HttpClientDownloader extends AbstractDownloader {
             logger.warn("download page {} error", request.getUrl(), e);
             onError(request);
             // if proxyRemoveCodes size great than 0, show user want to filter invalid proxy,
-            // but the page object code in that is 200, such as connect timeout...
-            // maybe it can add proxy connect timeout count.
-            if (proxyRemoveCodes.contains(page.getStatusCode()) && proxy != null) {
+            // but the page object code in that is 200, such as connect timeout...(maybe it can add proxy connect timeout count.)
+            if (proxy != null && proxyRemoveCodes.size() > 0) {
                 proxyProvider.removeProxy(proxy);
             }
             return page;
