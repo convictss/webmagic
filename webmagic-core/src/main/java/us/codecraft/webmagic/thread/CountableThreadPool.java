@@ -67,22 +67,24 @@ public class CountableThreadPool {
             }
         }
         threadAlive.incrementAndGet();
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    runnable.run();
-                } finally {
+        if (!executorService.isShutdown()) {
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
                     try {
-                        reentrantLock.lock();
-                        threadAlive.decrementAndGet();
-                        condition.signal();
+                        runnable.run();
                     } finally {
-                        reentrantLock.unlock();
+                        try {
+                            reentrantLock.lock();
+                            threadAlive.decrementAndGet();
+                            condition.signal();
+                        } finally {
+                            reentrantLock.unlock();
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     public boolean isShutdown() {
