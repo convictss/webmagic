@@ -599,11 +599,7 @@ public class Spider implements Runnable, Task {
         } else {
             logger.info("Spider " + getUUID() + " stop fail!");
         }
-        clearScheduler();
-    }
-
-    public void clearScheduler() {
-        scheduler.clear();
+        // scheduler.clear();
     }
 
     /**
